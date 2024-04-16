@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <div id="side-menu">
+        <button class="nav-btn">
+            <img src="../../assets/icons/managers.png" style="width: 20px; height: auto;">
+        </button>
+        <button class="nav-btn">
+            <img src="../../assets/icons/analytics.png" style="width: 20px; height: auto;">
+        </button>
+        <button class="nav-btn">
+            <img src="../../assets/icons/logout.png" style="width: 20px; height: auto;">
+        </button>
+    </div>
+    
+    <div id="content">
+        <h1>Менеджеры</h1>
+        <div style="display: flex;">
+            <div class="search-container">
+                <input type="text" placeholder="Поиск">
+                <button class="search-button">ПОИСК</button>
+            </div>
+            <button class="add-manager-button" onclick="openMgrCreateEditModal()">
+                <img src="../../assets/icons/add.png" style="width: 16px; height: auto;">
+                <span>Добавить менеджера</span>
+            </button>
+        </div>
+        <table id="managersTable">
+            <tr>
+                <th>#</th>
+                <th>Полное имя</th>
+                <th>Дата рождения</th>
+                <th>Email</th>
+                <th>Телефон</th>
+                <th>Действия</th>
+            </tr>
+        </table>
+        <button id="loadMoreManagers" style="display: none">Ещё книги</button>
+    </div>
+    <script src="./dashboard.js" type="module"></script>
+</body>
+</html>

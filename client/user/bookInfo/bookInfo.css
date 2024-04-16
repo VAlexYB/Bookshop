@@ -1,0 +1,38 @@
+#content {
+    margin-top: 150px; 
+    margin-left: 25px !important; 
+    margin-right: 100px;
+    padding: 20px; 
+    color: rgb(199,179,112); 
+}
+
+#bookInfo {
+    display: flex;
+    justify-content: space-between;
+}
+
+.book-details .book-reviews {
+    flex-basis: 49%;
+}
+
+.book-cover {
+    margin-right: 50px;
+}
+.book-cover img {
+    width: 250px;
+}
+
+#bookInfo button {
+    margin-top: 10px; /* Отступ сверху для кнопок */
+    margin-right: 10px;
+    color: inherit;
+    padding: 10px; /* Внутренние отступы для кнопок */
+    background-color: #1a271c; /* Цвет фона кнопок */
+    border: 3px solid rgb(199,179,112);
+    border-radius: 5px; 
+    cursor: pointer; /* Курсор в виде руки при наведении */
+}
+
+.book-reviews {
+    justify-content: right;
+}

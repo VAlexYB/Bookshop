@@ -1,15 +1,30 @@
-const BookService = require('../core/services/bookService');
+const Book = require('../core/models/Book')
 
-
-
-
-const bookService = new BookService();
-
-exports.getBooks = async (req, res) => {
+class BookController {  
+  async getBooks(req, res) {
     try {
-        const books = await bookService.getBooks();
-        res.json(books);
-      } catch (error) {
-        res.status(500).send(error.toString());
-      }
+      const page = parseInt(req.query.page) || 1;
+      const pageSize = parseInt(req.query.pageSize) || 20;
+
+      const skip = (page - 1) * pageSize;
+      const books =  await Book.find().skip(skip).limit(pageSize);
+      res.json(books);
+    } catch (error) {
+      res.status(500).send(error.toString());
+    }
   }
+
+  getById = async (req, res) => {
+    try {
+      const id = parseInt(req.query.id);
+
+      const book = await Book.findOne({Id: id});
+      res.json(book);
+    } catch (error) {
+      res.status(500).send(error.toString());
+    }
+  }
+}
+
+module.exports = new BookController();
+
