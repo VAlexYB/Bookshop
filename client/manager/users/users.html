@@ -4,22 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="users.css">
 </head>
-<body>
+<body>    
     <div id="content">
-        <h1>Менеджеры</h1>
+        <h1>Пользователи</h1>
+        <h2>Нужна ли возможность просмотра всех пользователей контент менеджеры (или можно создать модалку в которой можно по имени найти пользователя и банить/разбанить в зависимости от этого?)</h2>
         <div style="display: flex;">
             <div class="search-container">
                 <input type="text" placeholder="Поиск">
                 <button class="search-button">ПОИСК</button>
             </div>
-            <button class="add-manager-button" onclick="openMgrCreateEditModal()">
-                <img src="/assets/icons/add.png" style="width: 16px; height: auto;">
-                <span>Добавить менеджера</span>
-            </button>
         </div>
-        <table id="managersTable">
+        <table id="usersTable">
             <tr>
                 <th>#</th>
                 <th>Полное имя</th>
@@ -30,9 +27,9 @@
                 <th>Действия</th>
             </tr>
         </table>
-        <button id="loadMoreManagers" style="display: none">Ещё книги</button>
+        <button id="loadMoreUsers" style="display: none">Ещё пользователи</button>
     </div>
-    <script src="dashboard.js" type="module"></script>
-    <script src="/admin/sideMenu/sideMenu.js"></script>
+    <script src="users.js" type="module"></script>
+    <script src="/manager/sideMenu/sideMenu.js"></script>
 </body>
 </html>

@@ -1,8 +1,8 @@
 body {
-  margin: 0;
-  padding: 0;
-  display: flex;
-  color: #08470a;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    color: #08470a;
 }
 
 #side-menu {
@@ -36,32 +36,32 @@ body {
     justify-content: space-between;
 }
 
-#managersTable {
+#booksTable {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-  }
+}
   
-  #managersTable th, #managersTable td {
+#booksTable th, #booksTable td {
     text-align: left;
     padding: 12px;
     border-bottom: 1px solid #e3f2fd;
-  }
+}
   
-  #managersTable th {
+#booksTable th {
     background-color: #08470a;
     color: white;
-  }
+}
   
-  #managersTable tr:hover {
+#booksTable tr:hover {
     background-color: #e8f5e9;
-  }
+}
   
-  #managersTable td {
+#booksTable td {
     background-color: #f1f8e9;
-  }
+}
   
-  button,  a {
+button, a {
     border-color: #08470a;
     border-radius: 6px;
     margin: 4px;
@@ -69,13 +69,13 @@ body {
     cursor: pointer;
     background-color: #f1f8e9;
     color: rgb(0, 0, 0);
-  }
+}
   
-  button:hover, a:hover{
+button:hover, a:hover {
     background-color: #66bb6a;
-  }
+}
   
-  #loadMoreManagers {
+#loadMoreBooks {
     display: block;
     width: 100%;
     padding: 12px 0;
@@ -85,13 +85,13 @@ body {
     border: none;
     cursor: pointer;
     margin-top: 20px;
-  }
+}
   
-  #loadMoreManagers:hover {
+#loadMoreBooks:hover {
     background-color: #66bb6a;
-  }
+}
   
-  .add-manager-button {
+.add-manager-button {
     display: flex;
     justify-content: center; 
     align-items: center; 

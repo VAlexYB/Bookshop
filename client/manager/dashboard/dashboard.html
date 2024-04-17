@@ -6,9 +6,9 @@
     <title>Document</title>
     <link rel="stylesheet" href="dashboard.css">
 </head>
-<body>
+<body>    
     <div id="content">
-        <h1>Менеджеры</h1>
+        <h1>Онлайн-библиотека</h1>
         <div style="display: flex;">
             <div class="search-container">
                 <input type="text" placeholder="Поиск">
@@ -16,23 +16,24 @@
             </div>
             <button class="add-manager-button" onclick="openMgrCreateEditModal()">
                 <img src="/assets/icons/add.png" style="width: 16px; height: auto;">
-                <span>Добавить менеджера</span>
+                <span>Добавить книгу</span>
             </button>
         </div>
-        <table id="managersTable">
+        <table id="booksTable">
             <tr>
                 <th>#</th>
-                <th>Полное имя</th>
-                <th>Никнэйм</th>
-                <th>Дата рождения</th>
-                <th>Email</th>
-                <th>Телефон</th>
+                <th>Обложка</th>
+                <th>Название</th>
+                <th>Автор</th>
+                <th>Год выпуска</th>
+                <th>Жанры</th>
+                <th>Стоимость</th>
                 <th>Действия</th>
             </tr>
         </table>
-        <button id="loadMoreManagers" style="display: none">Ещё книги</button>
+        <button id="loadMoreBooks" style="display: none">Ещё книги</button>
     </div>
     <script src="dashboard.js" type="module"></script>
-    <script src="/admin/sideMenu/sideMenu.js"></script>
+    <script src="/manager/sideMenu/sideMenu.js"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-import { handleRegisterFormSubmit } from "/modals/accountModals/registerModal/registerModal.js";
+import { handleRegisterFormSubmit } from "../../modals/accountModals/registerModal/registerModal.js";
 
 document.addEventListener('DOMContentLoaded', function(){
     loadManagers();
@@ -39,7 +39,7 @@ function loadManagers(page = 1, pageSize = 20) {
             const actionsCell = row.insertCell(6);
             const editButton = document.createElement('button');
             const editImg = document.createElement('img');
-            editImg.src = '../../assets/icons/pencil.png';
+            editImg.src = '/assets/icons/pencil.png';
             editImg.style.width = '16px';
             editButton.appendChild(editImg);
             editButton.onclick = function() { editManager(manager._id); }; 
@@ -47,7 +47,7 @@ function loadManagers(page = 1, pageSize = 20) {
             
             const deleteButton = document.createElement('button');
             const deleteImg = document.createElement('img');
-            deleteImg.src = '../../assets/icons/delete.png';
+            deleteImg.src = '/assets/icons/delete.png';
             deleteImg.style.width = '16px';
             deleteButton.appendChild(deleteImg);
             deleteButton.onclick = function() { deleteManager(manager._id); };

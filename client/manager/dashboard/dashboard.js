@@ -1,4 +1,4 @@
-import { handleRegisterFormSubmit } from "/modals/accountModals/registerModal/registerModal.js";
+import { handleRegisterFormSubmit } from "../../modals/accountModals/registerModal/registerModal.js";
 
 document.addEventListener('DOMContentLoaded', function(){
     loadManagers();
@@ -26,7 +26,7 @@ function loadManagers(page = 1, pageSize = 20) {
     })
     .then(response => response.json())
     .then(managers => {
-        const managersTable = document.getElementById('managersTable');
+        const managersTable = document.getElementById('booksTable');
         managers.forEach((manager, index) => {
             const row = managersTable.insertRow(-1);
             row.insertCell(0).textContent = ++index; 

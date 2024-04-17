@@ -21,6 +21,9 @@ export const handleLoginFormSubmit = (event) => {
         const decodedToken = jwt_decode(data.token);
         if(decodedToken.roles.includes('ADMIN')) {
             window.location.href = '/admin/dashboard/dashboard.html';
+        }
+        else if(decodedToken.roles.includes('CONTENT-MANAGER')) {
+            window.location.href = '/manager/dashboard/dashboard.html';
         }           
     })
     .catch((error) => {

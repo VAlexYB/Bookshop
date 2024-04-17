@@ -85,7 +85,7 @@ body {
 #side-menu {
     background-color: #1a271c; 
     color: rgb(199,179,112); 
-    width: 200px; 
+    width: 250px; 
     position: fixed; 
     top: 120px;
     bottom: 0; 
@@ -94,8 +94,63 @@ body {
     z-index: 1; 
 }
 
-#side-menu nav {
-    padding: 20px; 
+.genres {
+    margin: 15px 15px;
+}
+
+.genres .title {
+    font-weight: bold;
+}
+
+.sidebar-section {
+    margin-left: 15px;
+}
+
+.toggler-wrapper {
+    display: block;
+    width: 30px;
+    height: 15px;
+    cursor: pointer;
+    position: relative;
+}
+  
+.toggler-wrapper input[type="checkbox"] {
+    display: none;
+}
+  
+.toggler-wrapper input[type="checkbox"]:checked+.toggler-slider {
+    background-color: #91b87a;
+}
+  
+.toggler-wrapper .toggler-slider {
+    background-color: #ccc;
+    position: absolute;
+    border-radius: 100px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-transition: all 300ms ease;
+    transition: all 300ms ease;
+}
+  
+.toggler-wrapper .toggler-knob {
+    position: absolute;
+    -webkit-transition: all 300ms ease;
+    transition: all 300ms ease;
+}
+
+.toggler-wrapper.style-1 input[type="checkbox"]:checked+.toggler-slider .toggler-knob {
+    left: calc(100% - 8px - 3px);
+}
+  
+.toggler-wrapper.style-1 .toggler-knob {
+    width: calc(15px - 6px);
+    height: calc(15px - 6px);
+    border-radius: 50%;
+    left: 3px;
+    top: 3px;
+    background-color: #fff;
 }
 
 #content {
