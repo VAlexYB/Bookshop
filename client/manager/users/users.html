@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="users.css">
+</head>
+<body>    
+    <div id="content">
+        <h1>Пользователи</h1>
+        <h2>Нужна ли возможность просмотра всех пользователей контент менеджеры (или можно создать модалку в которой можно по имени найти пользователя и банить/разбанить в зависимости от этого?)</h2>
+        <div style="display: flex;">
+            <div class="search-container">
+                <input type="text" placeholder="Поиск">
+                <button class="search-button">ПОИСК</button>
+            </div>
+        </div>
+        <table id="usersTable">
+            <tr>
+                <th>#</th>
+                <th>Полное имя</th>
+                <th>Никнэйм</th>
+                <th>Дата рождения</th>
+                <th>Email</th>
+                <th>Телефон</th>
+                <th>Действия</th>
+            </tr>
+        </table>
+        <button id="loadMoreUsers" style="display: none">Ещё пользователи</button>
+    </div>
+    <script src="users.js" type="module"></script>
+    <script src="/manager/sideMenu/sideMenu.js"></script>
+</body>
+</html>
