@@ -14,11 +14,10 @@ const PersonalInfo = new Schema({
   nickname: { type: String, required: false },
   dateOfBirth: { type: Date, required: false },
   email: {type: String, required: true },
-  phone: { type: String, required: false },
+  phoneNumber: { type: String, required: false },
   cardIdFirstDigits: { type: String, required: false },
   cardIdLastDigits: { type: String, required: false },
-  hasLinkedCard: { type: Boolean, required: true },
-  hasAccess: { type: Boolean, required: true }
+  hasLinkedCard: { type: Boolean, required: true }
 });
 
 module.exports = model('PersonalInfo', PersonalInfo);

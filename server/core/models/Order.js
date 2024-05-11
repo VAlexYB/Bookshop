@@ -12,7 +12,14 @@ const Order = new Schema({
         ref: 'Book',
         required: true
     },
-    creationDate: Date = new Date()
+    id: Number,
+    creationDate: Date = new Date(),
+    editDate: Date,
+    deliveryAddress: String,
+    status: String,
+    price: Number,
+    recipientFullname: String,
+    recipientPhone: String
 });
 
-module.exports = model('Book', Book);
+module.exports = model('Order', Order);

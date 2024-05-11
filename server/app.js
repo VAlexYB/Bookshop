@@ -4,11 +4,14 @@ const path = require('path');
 
 const router = require('./routes/routes.js');
 const { connectToServer } = require('./core/dbConnection.js');
+const fileUpload = require('express-fileupload');
+
 const PORT = process.env.PORT || 3000;
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(fileUpload());
 app.use((req, res, next) => {
     console.log(`${req.method} ${req.url}`);
     next();

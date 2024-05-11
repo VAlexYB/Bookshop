@@ -5,7 +5,6 @@ module.exports = function(roles) {
         if(req.method === "OPTIONS") {
             next();
         }
-
         try {
             const token = req.headers.authorization.split(' ')[1];
             if (!token) {

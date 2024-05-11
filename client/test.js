@@ -22,19 +22,18 @@ function loadBooks(page = 1, pageSize = 20) {
             books.forEach(book => {
                 const bookCard = template.content.cloneNode(true);
                 const card = bookCard.querySelector('.book-card');
-                card.setAttribute('bookId', book.Id);
+                card.setAttribute('bookId', book._id);
 
                 const img = bookCard.querySelector('.book-cover img');
-                img.src = book.Extension ? `http://localhost:3000/images/covers/${book.Id}.${book.Extension}` : 'http://localhost:3000/images/covers/default.jpg';
+                img.src = book.Extension ? `http://localhost:3000/images/covers/${book._id}.${book.Extension}` : 'http://localhost:3000/images/covers/default.jpg';
                 img.alt = book.Title;
                 
                 bookCard.querySelector('.book-title').textContent = book.Title;
                 bookCard.querySelector('.book-author').textContent = book.Author;
                 
                 card.addEventListener('click', function() {
-                    window.location.href = `/user/bookInfo/bookInfo.html?bookId=${book.Id}`;
+                    window.location.href = `/user/bookInfo/bookInfo.html?bookId=${book._id}`;
                 });
-
                 booksList.appendChild(bookCard);
             });
             loadedAfterClick += books.length;

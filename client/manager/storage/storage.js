@@ -1,8 +1,5 @@
-import { handleRegisterFormSubmit } from "../../modals/accountModals/registerModal/registerModal.js";
-
 document.addEventListener('DOMContentLoaded', function(){
-    loadManagers();
-    // initCreateEditModal();
+    loadStorage();
 });
 
 let currentPage = 1;
@@ -12,55 +9,53 @@ let loadedAfterClick = 0;
 
 window.addEventListener('scroll', () => {
     if(window.innerHeight + window.pageYOffset >= document.body.offsetHeight - 100 && loadedAfterClick < 100) {
-        loadManagers(currentPage, pageSize);
+        loadStorage(currentPage, pageSize);
     }
 });
 
 
-function loadManagers(page = 1, pageSize = 20) {
-    fetch(`http://localhost:3000/api/users`, {
-        method: 'GET',
+function loadStorage(page = 1, pageSize = 20) {
+    fetch(`http://localhost:3000/api/filteredStorages`, {
+        method: 'POST',
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
     })
     .then(response => response.json())
-    .then(managers => {
-        const managersTable = document.getElementById('managersTable');
-        managers.forEach((manager, index) => {
-            const row = managersTable.insertRow(-1);
-            row.insertCell(0).textContent = ++index; 
-            row.insertCell(1).textContent = `${manager.surname} ${manager.name} ${manager.patronimyc}`; 
-            row.insertCell(2).textContent = manager.nickname; 
-            row.insertCell(3).textContent = manager.dateOfBirth; 
-            row.insertCell(4).textContent = manager.email; 
-            row.insertCell(5).textContent = manager.phoneNumber; 
+    .then(storages => {
+        console.log(storages);
+        const storageBooksTable = document.getElementById('storageBooksTable');
+        storages.forEach((storage, index) => {
+            const row = storageBooksTable.insertRow(-1);
+            row.insertCell(0).textContent = ++index;  
+            const coverCell = row.insertCell(1);
+            const img = document.createElement('img');
+            img.style.width = '30px';
+            img.src = storage.extension ? `http://localhost:3000/images/covers/${storage.bookId}.${storage.extension}` : 'http://localhost:3000/images/covers/default.jpg';
+            coverCell.appendChild(img);
+            row.insertCell(2).textContent = storage.title; 
+            row.insertCell(3).textContent = storage.author; 
+            row.insertCell(4).textContent = storage.year; 
+            row.insertCell(5).textContent = storage.amount;
+            row.insertCell(6).textContent = storage.price; 
             
-            const actionsCell = row.insertCell(6);
+            const actionsCell = row.insertCell(7);
             const editButton = document.createElement('button');
             const editImg = document.createElement('img');
             editImg.src = '/assets/icons/pencil.png';
             editImg.style.width = '16px';
             editButton.appendChild(editImg);
-            editButton.onclick = function() { editManager(manager._id); }; 
+            editButton.onclick = function() { editPrice(storage); }; 
             actionsCell.appendChild(editButton);
-            
-            const deleteButton = document.createElement('button');
-            const deleteImg = document.createElement('img');
-            deleteImg.src = '/assets/icons/delete.png';
-            deleteImg.style.width = '16px';
-            deleteButton.appendChild(deleteImg);
-            deleteButton.onclick = function() { deleteManager(manager._id); };
-            actionsCell.appendChild(deleteButton);
             index++;
         });
     })
-    .catch(error => console.error('Ошибка при загрузке списка менеджеров:', error));
+    .catch(error => console.error('Ошибка при загрузке списка книг на складе:', error));
     
 };
 
 function checkLoadMoreButton() {
-    const loadMoreButton = document.getElementById('loadMoreManagers');
+    const loadMoreButton = document.getElementById('loadMoreBooks');
     if(loadedAfterClick >= 100) {
         loadMoreButton.style.display = 'block';
     } else {
@@ -68,26 +63,88 @@ function checkLoadMoreButton() {
     }
 };
 
-document.getElementById('loadMoreManagers').addEventListener('click', () => {
-    loadManagers(currentPage, pageSize);
+document.getElementById('loadMoreBooks').addEventListener('click', () => {
+    loadStorage(currentPage, pageSize);
     loadedAfterClick = 0;
 });
 
-function initCreateEditModal() {
-    fetch('../modals/mgrCreateEditModal/mgrCreateEditModal.html').then(response => response.text()).
-    then( html => {
-        document.body.insertAdjacentHTML('beforeend', html);
-        const registerForm = document.getElementById('mgrForm');
-        const btnCloseModals = document.querySelectorAll('.close');
+window.openAddSupplyModal = function () {
+    const supplyModal = document.getElementById('supplyModal');
+    if(supplyModal) {
+        supplyModal.showModal();
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', () => {
+            const term = searchInput.value.toLowerCase();
+            if (term.length > 3) {
+                let filter = {};
+                filter.term = term;
 
-        registerForm.addEventListener('submit', handleRegisterFormSubmit);
-        btnCloseModals.forEach(btn => btn.addEventListener('click', () => {
-            registerModal.close();
-        }));
-    });
+                const booksList = document.getElementById('booksList');
+                Array.from(booksList.children).forEach(child => {
+                    if (child !== booksList.querySelector('template')) {
+                        booksList.removeChild(child);
+                    }
+                });
+
+                fetch('http://localhost:3000/api/filteredBooks', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(filter)
+                })
+                .then(response => response.json())
+                .then(books =>  {
+                    const template = document.getElementById('bookCardTemplate')
+                    books.forEach (book => {
+                        const bookCard = template.content.cloneNode(true);
+                        const card = bookCard.querySelector('.book-card');
+                        card.setAttribute('bookId', book._id);
+                        card.setAttribute('title', book.Title);
+
+                        const img = bookCard.querySelector('.book-cover img');
+                        img.src = book.Extension ? `http://localhost:3000/images/covers/${book._id}.${book.Extension}` : 'http://localhost:3000/images/covers/default.jpg';
+                        img.alt = book.Title;
+                        bookCard.querySelector('.book-title').textContent = book.Title;
+                        bookCard.querySelector('.book-author').textContent = book.Author;
+                        booksList.appendChild(bookCard);
+                    });
+                });
+
+
+                booksList.addEventListener('click', function(event) {
+                    const target = event.target;
+                    if(target.classList.contains('book-card')) {
+                        document.getElementById('supplyBookId').value = target.getAttribute('bookId');
+                        const bookCards = document.querySelectorAll('.selected');
+                        bookCards.forEach(card => {
+                            card.classList.remove('selected'); 
+                        });
+                        target.classList.add('selected');
+                    }
+                })
+            };
+        });
+    }     
+    else {
+        
+    }
 }
 
-function openMgrCreateEditModal() {
-    document.getElementById('mgrModal')
-    registerModal.openModal();
+window.onclick = (event) => {
+    if (event.target.classList.contains('modal')) {
+        document.querySelectorAll('.modal').forEach(modal => modal.close());
+    }
+};
+
+window.editPrice = function (storage) {
+    const priceEditModal = document.getElementById('priceEditModal');
+    if(priceEditModal) {
+        document.getElementById('storageId').value = storage._id;
+        document.getElementById('modalName').textContent = "Редактирование цены";
+        document.getElementById('title').textContent = storage.title; 
+        document.getElementById('author').textContent = storage.author; 
+        document.getElementById('year').textContent = storage.year; 
+        priceEditModal.showModal();
+    }
 }

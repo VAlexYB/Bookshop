@@ -1,5 +1,8 @@
 export const handleRegisterFormSubmit = (event) => {
     event.preventDefault(); 
+
+    document.getElementById('registerModal').style.display = 'none';
+
     const formData = new FormData(registerForm);
     const surname = formData.get('surname');
     const name = formData.get('name');
@@ -38,7 +41,14 @@ export const handleRegisterFormSubmit = (event) => {
     })
     .then(response => response.json())
     .then(data => {
-        console.log(data.message); 
+        console.log(data.message);
+        const alertModal = document.getElementById('alertModal');
+        document.getElementById('alertTitle').innerText = 'Регистрация';
+        document.getElementById('alertText').innerText = data.message;  
+        alertModal.showModal();
+        document.getElementById('alertBtn').addEventListener('click', function() {
+            alertModal.close();
+        })
         
     })
     .catch((error) => {

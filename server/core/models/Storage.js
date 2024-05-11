@@ -8,7 +8,7 @@ const Storage = new Schema({
         required: true
     },
     amount: { type: Number, required: true },
-    price: { type: Number, required: true } //цена на данный момент
+    price: { type: Number, required: false } //цена на данный момент
 });
 
 module.exports = model('Storage', Storage);

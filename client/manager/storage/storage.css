@@ -36,28 +36,28 @@ body {
     justify-content: space-between;
 }
 
-#booksTable {
+#storageBooksTable {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
 }
   
-#booksTable th, #booksTable td {
+#storageBooksTable th, #booksTable td {
     text-align: left;
     padding: 12px;
     border-bottom: 1px solid #e3f2fd;
 }
   
-#booksTable th {
+#storageBooksTable th {
     background-color: #08470a;
     color: white;
 }
   
-#booksTable tr:hover {
+#storageBooksTable tr:hover {
     background-color: #e8f5e9;
 }
   
-#booksTable td {
+#storageBooksTable td {
     background-color: #f1f8e9;
 }
   
@@ -103,4 +103,40 @@ button:hover, a:hover {
 .nav-btn {
     border: none;
     margin: 10px 0;
+}
+
+.book-card {
+    margin-bottom: 10px; 
+    background-color: #bbceb0; 
+    border: 1px solid #547e10; 
+    border-radius: 8px; 
+    overflow: hidden; 
+    cursor: pointer;
+    display: flex;
+}
+
+.book-cover img {
+    padding: auto;
+    width: 30px; 
+    height: auto; 
+}
+
+.book-info {
+    padding-left: 10px;
+}
+
+.book-title {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 5px; 
+}
+
+.book-author {
+    font-size: 12px; 
+    color: #666; 
+    margin-bottom: 10px;
+}
+
+.selected {
+     background-color: #7ba166; 
 }

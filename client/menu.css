@@ -248,11 +248,12 @@ body {
     margin: auto; 
     padding: 20px;
     border: 1px solid #888;
-    width: 35%; 
     position: relative;
 }
 
-
+#registerModal .modal-content, #loginModal .modal-content{
+    width: 35%; 
+}
 .close {
     color: #aaa;
     float: right;

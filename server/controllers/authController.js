@@ -1,80 +1,40 @@
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+const AuthService = require('../core/services/authService');
 
-const User = require('../core/models/User');
-const Role = require('../core/models/Role');
-const PersonalInfo = require('../core/models/PersonalInfo');
-const {secret} = require('../config');
-
-
-generateAccessToken = (id, roles) => {
-    const payload = {
-        id, 
-        roles
-    }
-    return jwt.sign(payload, secret, { expiresIn: "24h"});
-}
-
-class authController {
+class AuthController {
     async registration(req, res) {
         try {
             const data = req.body;
-            const candidate = await User.findOne({ username: data.username });
-            if(candidate) {
-                return res.status(400).json({message: 'Пользователь с таким именем уже существует'})
+            console.log(data);
+            const result = await AuthService.registration(data);
+            if(result) {
+                return res.json({message: "Регистрация прошла успешно"});
             }
-            if(data.cardId && !validateCardId(data.cardId)) {
-                return res.status(400).json({message: 'Вы ввели неправильный номер карты. Пожалуйста, перепроверьте'})
+            return res.json({message: "Неизвестная ошибка"});
+        } catch (error) {
+            if(error.isUserError) {
+                return res.json({ message: error.message });
             }
-            const hashPassword = bcrypt.hashSync(data.password, 7);
-            const userRole = await Role.findOne({value: 'USER'});
-
-            const user = new User({
-                username: data.username,
-                hashPassword: hashPassword, 
-                roles: [userRole.value]
-            });
-            await user.save();
-
-            const personalInfo = new PersonalInfo({
-                user: user._id,
-                surname: data.surname,
-                name: data.name,
-                patronimyc: data.patronimyc,
-                nickname: data.nickname,
-                dateOfBirth: data.dateOfBirth,
-                email: data.email,
-                phone: data.phone
-            });
-            await personalInfo.save();
-            return res.json({message: "Регистрация прошла успешно"});
-        } catch (e) {
-            console.log(e);
+            else {
+                console.log(error);
+            }
         }
     }
 
     async login(req, res) {
         try {
-            const {username, password} = req.body;
-            const user = await User.findOne({username});
-            if(!user) {
-                return res.status(400).json({message: 'Пользователь с таким именем не найден'});
-            }
-            const personalInfo = await PersonalInfo.findOne({user: user._id});
-            if(personalInfo && !personalInfo.hasAccess) {
-                return res.status(400).json({message: 'Вам запрещен доступ к системе'});
-            }
-            const isValidPassword = bcrypt.compareSync(password, user.hashPassword);
-            if(!isValidPassword) {
-                return res.status(400).json({message: 'Введен неверный пароль'});
-            }
-            const token = generateAccessToken(user._id, user.roles);
+            const data = req.body;
+            const {token} = await AuthService.login(data);
             return res.json({token});
-        } catch (e) {
-            return false;
+        } catch (error) {
+            if(error.isUserError) {
+                return res.json({ message: error.message });
+            }
+            else {
+                console.log(error);
+            }
         }
     }
 
 }
 
-module.exports = new authController();
+module.exports = new AuthController();
