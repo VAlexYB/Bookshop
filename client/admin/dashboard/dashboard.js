@@ -18,7 +18,7 @@ window.addEventListener('scroll', () => {
 
 
 function loadManagers(page = 1, pageSize = 20) {
-    fetch(`http://localhost:3000/api/users`, {
+    fetch(`http://localhost:3000/api/managers`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -31,7 +31,7 @@ function loadManagers(page = 1, pageSize = 20) {
             const row = managersTable.insertRow(-1);
             row.insertCell(0).textContent = ++index; 
             row.insertCell(1).textContent = `${manager.surname} ${manager.name} ${manager.patronimyc}`; 
-            row.insertCell(2).textContent = manager.nickname; 
+            row.insertCell(2).textContent = manager.username; 
             row.insertCell(3).textContent = manager.dateOfBirth; 
             row.insertCell(4).textContent = manager.email; 
             row.insertCell(5).textContent = manager.phoneNumber; 
@@ -42,7 +42,7 @@ function loadManagers(page = 1, pageSize = 20) {
             editImg.src = '/assets/icons/pencil.png';
             editImg.style.width = '16px';
             editButton.appendChild(editImg);
-            editButton.onclick = function() { editManager(manager._id); }; 
+            editButton.onclick = function() { openMgrEditModal(manager); }; 
             actionsCell.appendChild(editButton);
             
             const deleteButton = document.createElement('button');
@@ -50,7 +50,7 @@ function loadManagers(page = 1, pageSize = 20) {
             deleteImg.src = '/assets/icons/delete.png';
             deleteImg.style.width = '16px';
             deleteButton.appendChild(deleteImg);
-            deleteButton.onclick = function() { deleteManager(manager._id); };
+            deleteButton.onclick = function() { deleteManager(manager); };
             actionsCell.appendChild(deleteButton);
             index++;
         });
@@ -73,21 +73,60 @@ document.getElementById('loadMoreManagers').addEventListener('click', () => {
     loadedAfterClick = 0;
 });
 
-function initCreateEditModal() {
-    fetch('../modals/mgrCreateEditModal/mgrCreateEditModal.html').then(response => response.text()).
-    then( html => {
-        document.body.insertAdjacentHTML('beforeend', html);
-        const registerForm = document.getElementById('mgrForm');
-        const btnCloseModals = document.querySelectorAll('.close');
 
-        registerForm.addEventListener('submit', handleRegisterFormSubmit);
-        btnCloseModals.forEach(btn => btn.addEventListener('click', () => {
-            registerModal.close();
-        }));
-    });
+
+window.openMgrCreateEditModal = function () {
+    const mgrModal = document.getElementById('mgrModal');
+    if(mgrModal) {
+        mgrModal.showModal();
+    }     
 }
 
-function openMgrCreateEditModal() {
-    document.getElementById('mgrModal')
-    registerModal.openModal();
+window.openMgrEditModal = function (manager) {
+    const mgrModal = document.getElementById('mgrModal');
+    if(mgrModal) {
+        document.getElementById('mgrId').value = manager.userId;
+        document.getElementById('surname').value = manager.surname;
+        document.getElementById('name').value = manager.name;
+        document.getElementById('patronimyc').value = manager.patronimyc;
+        document.getElementById('dateOfBirth').value = manager.dateOfBirth;
+        document.getElementById('email').value = manager.email;
+        document.getElementById('phoneNumber').value = manager.phoneNumber;
+        document.getElementById('username').value = manager.username;
+        mgrModal.showModal();
+    } 
+
+}
+
+window.deleteManager = function (manager) {
+    const confirmModal = document.getElementById('confirmModal');
+    if (confirmModal) {
+        document.getElementById('confirmTitle').innerText = 'Удаление профиля';
+        document.getElementById('confirmText').innerText = `Вы уверены что хотите удалить профиль "${manager.surname} ${manager.name} ${manager.patronimyc}"?`;
+        confirmModal.showModal();
+    
+        document.getElementById('confirmBtn').addEventListener('click', function() {
+            fetch(`http://localhost:3000/api/deleteManager?id=${manager.userId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                confirmModal.close();
+                const alertModal = document.getElementById('alertModal');
+                document.getElementById('alertTitle').innerText = 'Удаление профиля менеджера';
+                document.getElementById('alertText').innerText = data.message;  
+                alertModal.showModal();
+                document.getElementById('alertBtn').addEventListener('click', function() {
+                    alertModal.close();
+                })
+            })
+            .catch((error) => {
+                console.error('Ошибка:', error);
+            });
+        });
+    }
 }

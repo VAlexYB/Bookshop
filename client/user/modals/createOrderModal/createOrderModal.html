@@ -3,13 +3,13 @@
     <div class="modal-header">
         <h2>Оформление заказа</h2>
     </div>
-    <div class="modal-content">
-        <p>Счет: <span id="accountNumber"></span></p>
+    <form id="makeOrderForm" class="modal-content">
+        <p>Счет списания: <span id="accountNumber"></span></p>
         <p>Стоимость заказа: <span id="orderCost"></span></p>
-        <p>Имя получателя: <input type="text" id="recipientName"></p>
-        <p>Номер телефона: <input type="text" id="recipientPhone"></p>
-        <input type="text" id="autocompleteAddress" placeholder="Введите адрес" autocomplete="on">
+        <p>Имя получателя: <input type="text" id="recipientName" name="recipientName"></p>
+        <p>Номер телефона: <input type="text" id="recipientPhone" name="recipientPhone"></p>
+        <input type="text" id="autocompleteAddress" placeholder="Введите адрес" name="autocompleteAddress" required="true">
         <button id="cancelOrderBtn">Отменить заказ</button>
         <button id="confirmOrderBtn">Оформить заказ</button>
-    </div>
+    </form>
 </div>

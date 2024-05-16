@@ -12,11 +12,10 @@ const Order = new Schema({
         ref: 'Book',
         required: true
     },
-    id: Number,
-    creationDate: Date = new Date(),
+    creationDate: { type: Date, default: new Date()},
     editDate: Date,
     deliveryAddress: String,
-    status: String,
+    status: Number,
     price: Number,
     recipientFullname: String,
     recipientPhone: String

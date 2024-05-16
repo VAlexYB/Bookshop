@@ -47,7 +47,7 @@ class AuthService {
                 nickname: data.nickname,
                 dateOfBirth: data.dateOfBirth,
                 email: data.email,
-                phone: data.phone,
+                phoneNumber: data.phoneNumber,
                 hasLinkedCard: false
             });
 
@@ -77,6 +77,46 @@ class AuthService {
             return {token};
         } catch (e) {
             throw e;
+        }
+    }
+
+    async createOrEditManager(data) {
+        try {
+            console.log(data);
+            const mgr = data.mgrId ? await User.findById(data.mgrId) : new User();
+            
+            const hashPassword = bcrypt.hashSync(data.password, 7);
+            const userRole = await Role.findOne({value: 'CONTENT-MANAGER'});
+
+            mgr.username = data.username;
+            mgr.hashPassword = hashPassword;
+            mgr.roles = [userRole.value];
+            await mgr.save();
+
+            const mgrPI = data.mgrId ? await PersonalInfo.findOne({user: data.mgrId }) : new PersonalInfo();
+            
+            mgrPI.user = mgr._id,
+            mgrPI.surname = data.surname,
+            mgrPI.name = data.name,
+            mgrPI.patronimyc = data.patronimyc,
+            mgrPI.dateOfBirth = data.dateOfBirth,
+            mgrPI.email = data.email,
+            mgrPI.phoneNumber = data.phoneNumber,
+            mgrPI.hasLinkedCard = false
+            await mgrPI.save();
+
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async deleteMgrProfile(id) {
+        try {
+            await User.findByIdAndDelete(id);
+            await PersonalInfo.findOneAndDelete({user: id});
+            return true;
+        } catch (error) {
+            throw error;
         }
     }
 }

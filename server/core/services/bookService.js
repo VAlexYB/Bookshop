@@ -13,7 +13,7 @@ class BookService {
         }
     }
     
-      async getFilteredBooks(filter) {
+    async getFilteredBooks(filter) {
         try {
             let query = {};
 
@@ -38,7 +38,7 @@ class BookService {
         }
     } 
     
-      async getById(id) {
+    async getById(id) {
         try {
             const book = await Book.findById(id);
             return book;

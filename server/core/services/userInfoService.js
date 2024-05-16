@@ -36,6 +36,62 @@ class UserInfoService {
         }
     }
 
+    async getManagers(page, pageSize) {
+        try {
+            let aggregationPipeline = [
+                {
+                    $lookup: {
+                        from: 'users',
+                        localField: 'user',
+                        foreignField: '_id',
+                        as: 'userInfo'
+                    }
+                },
+                {
+                    $addFields: {
+                        surname: '$surname',
+                        name: '$name',
+                        patronimyc: '$patronimyc',
+                        dateOfBirth: '$dateOfBirth',
+                        email: '$email',
+                        phoneNumber: '$phoneNumber',
+                        userId: { $arrayElemAt: ['$userInfo._id', 0] },
+                        username: { $arrayElemAt: ['$userInfo.username', 0] },
+                    }
+                },
+                {
+                    $match: {
+                        'userInfo.roles': { $elemMatch: { $eq: 'CONTENT-MANAGER' } }
+                    }
+                },
+                {
+                    $project: {
+                        _id: 0,
+                        userId: 1,
+                        username: 1,
+                        surname: 1,
+                        name: 1,
+                        patronimyc: 1,
+                        dateOfBirth: 1,
+                        email: 1,
+                        phoneNumber: 1
+                    }
+                },
+                {
+                    $skip: (page - 1) * pageSize
+                },
+                {
+                    $limit: pageSize
+                }
+            ];
+
+            let managers = await PersonalInfo.aggregate(aggregationPipeline);
+            return managers;
+        } catch (error) {
+            return error;
+        }
+    }
+
     async addWallet(userId, cardId) {
         try {
             if(!cardId || !validateCardId(cardId)) {

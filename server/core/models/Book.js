@@ -2,7 +2,6 @@ const { Schema, model } = require('mongoose');
 
 
 const Book = new Schema({
-  Id: Number,
   Title: { type: String, required: true },
   Author: { type: String, required: true },
   Year: Number,

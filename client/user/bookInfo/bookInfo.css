@@ -37,7 +37,9 @@
     justify-content: right;
 }
 
-.user-modal {
+.user-modal,
+.messageModal {
     margin: auto;
-    
 }
+
+
