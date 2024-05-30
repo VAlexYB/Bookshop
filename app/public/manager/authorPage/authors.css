@@ -1,0 +1,118 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    color: #08470a;
+}
+
+.container {
+    margin-top: 200px;
+    margin-left: 220px;
+    padding: 20px;
+    width: calc(100% - 240px);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input, .form-group button {
+    padding: 10px;
+    width: 97%;
+}
+
+.authors-list {
+    margin-top: 20px;
+}
+
+.author-item {
+    display: flex;
+    width: 97%;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #e3f2fd;
+    background-color: #f1f8e9;
+}
+
+
+#side-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f4fcf5;
+    color: #08470a;
+    width: 200px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    overflow-y: auto;
+    z-index: 1;
+}
+
+#side-menu nav {
+    padding: 20px;
+}
+
+#content {
+    margin-top: 200px; 
+    margin-left: 500px; 
+    margin-right: 100px;
+    padding: 20px; 
+    justify-content: space-between;
+}
+
+button, a {
+    border-color: #08470a;
+    border-radius: 6px;
+    margin: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+    background-color: #f1f8e9;
+    color: #000;
+}
+
+button:hover, a:hover {
+    background-color: #66bb6a;
+}
+
+
+.nav-btn {
+    border: none;
+    margin: 10px 0;
+}
+
+
+.form-row {
+    display: flex;
+    width: 97%;
+    justify-content: space-between; 
+    align-items: flex-end; 
+}
+
+.form-group {
+    width: 30%;
+    display: flex; 
+    flex-direction: column; 
+    margin-right: 20px; 
+}
+
+.form-group:last-child {
+    margin-right: 0; 
+}
+
+#addAuthorBtn{
+    width: 97%;
+}
+
+.blurred {
+    filter: blur(10px);
+  }

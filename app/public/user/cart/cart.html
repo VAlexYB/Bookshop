@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/main/menu.css">
+    <link rel="stylesheet" href="cart.css">
+</head>
+<body>
+    <div id="top-menu"></div>
+    <div id="content">
+        <h1>Корзина</h1>
+        <div id="cartItems" class="cart-items"></div>
+        <template id="cartItemTemplate">
+            <div class="cart-item">
+                <button class="remove-button">-</button>
+                <div class="book-cover">
+                    <img src="http://localhost:3000/images/covers/default.jpg" alt="Обложка книги">
+                </div>
+                <div>
+                    <p class="book-details">
+                        <span class="book-title">Божественная комедия</span><br>
+                        <span class="book-author">Данте Алигьери</span>
+                    </p>
+                    <p class="book-count">Количество: 0</p>
+                </div>
+                <p class="book-price">Общая стоимость: 0 руб.</p>
+                <button class="add-button">+</button>
+            </div>
+        </template>
+        <div class="cart-summary">
+            <span id="totalPrice">Общая стоимость: 0 руб.</span>
+            <button id="orderButton">Заказать</button>
+        </div>
+    </div>
+    <script src ="/main/topMenu.js" type="module"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
+    <script src="cart.js"></script>
+    <script src="/modals/messageModal/messageModal.js"></script>
+    <script src="/user/modals/createOrderModal/createOrderModal.js"></script>
+</body>
+</html>

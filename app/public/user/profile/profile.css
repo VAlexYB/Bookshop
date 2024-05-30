@@ -1,0 +1,53 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+h1 {
+    text-align: center;
+}
+.personal-info {
+    margin-bottom: 20px;
+}
+.personal-info label {
+    display: block;
+    margin-bottom: 5px;
+}
+.personal-info input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+.personal-info input[type="date"] {
+    width: calc(100% - 16px);
+}
+
+.buttons {
+    text-align: center;
+}
+
+button, a {
+    border-color: #08470a;
+    border-radius: 6px;
+    margin: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+    background-color: #f1f8e9;
+    color: #000;
+    text-decoration: none;
+}
+
+button:hover, a:hover {
+    background-color: #66bb6a;
+}
+
+.user-modal,
+.messageModal {
+    margin: auto;
+}

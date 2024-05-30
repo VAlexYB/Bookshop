@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders</title>
+    <link rel="stylesheet" href="/main/menu.css">
+    <link rel="stylesheet" href="orders.css">
+</head>
+<body>
+    <div id="top-menu"></div>
+    <div id="content">
+        <label><h1>Заказы</h1></label>
+        <div id="ordersList" class="book-orders">
+            <template id="orderCardTemplate">
+                <div class="order-card">
+                    <div class="order-card-header">
+                        <h2 class="order-number">Заказ <span id="orderId">№97680784</span></h2>
+                        <span class="order-status">Готов к выдаче</span>
+                    </div>
+                    <div class="order-details">
+                        <p class="pickup-point-title">Место выдачи</p>
+                        <p class="pickup-point-address" id="orderAddress">г. Казань, ул. Чистопольская, д. 73</p>
+                        <p class="pickup-point-hours" id="deliveryTime">пн - вс: 10:00 - 21:00</p>
+                        <p class="order-date">Дата оформления: <span class="orderConfirmDate">6 апреля 2024, 18:41</span></p>
+                        <div class="order-summary">
+                            <p>Количество книг: <span class="totalBooks">3</span></p>
+                            <p>Общая стоимость: <span class="totalPrice">1500</span> рублей</p>
+                        </div>
+                        <div class="order-items" style="display: none;">
+                            
+                        </div>                        
+                    </div>
+                </div>
+            </template>
+            <template id="orderItemTemplate">
+                <div class="order-item">
+                    <div class="book-cover">
+                        <img src="http://localhost:3000/images/covers/default.jpg" alt="Обложка книги">
+                    </div>
+                    <div>
+                        <p class="book-title">Божественная комедия</p>
+                        <p class="book-author">Данте Алигьери</p>
+                    </div>
+                    <p style="margin-left: auto;">Количество: <span class="amount">2</span></p>
+                </div>
+            </template>
+        </div>
+        <button id="loadMoreOrders" style="display: none">Ещё заказы</button>
+    </div>
+    <script src="/modals/messageModal/messageModal.js"></script>
+    <script src="/main/topMenu.js" type="module"></script>
+    <script src="/shared/consts/orderStatuses.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
+    <script src="orders.js"></script>
+</body>
+</html>

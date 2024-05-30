@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личная информация</title>
+    <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Личная информация</h1>
+        <div class="personal-info">
+            <label for="surname">Фамилия:</label>
+            <input type="text" id="surname" name="surname">
+            <label for="name">Имя:</label>
+            <input type="text" id="name" name="name">
+            <label for="patronimyc">Отчество:</label>
+            <input type="text" id="patronimyc" name="patronimyc">
+            <label for="nickname">Никнейм:</label>
+            <input type="text" id="nickname" name="nickname">
+            <label for="dateOfBirth">Дата рождения:</label>
+            <input type="date" id="dateOfBirth" name="dateOfBirth">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email">
+            <label for="phoneNumber">Телефон:</label>
+            <input type="tel" id="phoneNumber" name="phoneNumber">
+            <label for="cardId">Номер карты:</label>
+            <input type="text" id="cardId" name="cardId" placeholder="Введите номер карты">
+        </div>
+        <div class="buttons">
+            <button id="logoutBtn">Выйти из аккаунта</button>
+            <a href="/main/test.html">Вернуться</a>
+            <button id="editPersonalInfoBtn">Изменить профиль</button>
+        </div>
+    </div>
+    <script src="profile.js"></script>
+    <script src="/modals/messageModal/messageModal.js"></script>
+</body>
+</html>

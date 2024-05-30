@@ -1,0 +1,25 @@
+<dialog id="addFileModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Добавление файла</h2>
+        </div>
+        <div class="modal-body">
+            <div>
+                <label for="file-type">Выберите тип файла:</label>
+                <select id="file-type" name="file-type">
+                    <option value="cover" style="background: url('/assets/icons/cover.png');">
+                        <span>Обложка</span>
+                    </option>
+                    <option value="book" style="background: url('/assets/icons/cover.png');">
+                        <span>Книга</span>
+                    </option>
+                </select>
+            </div>
+            <input type="file" id="file">
+            <input type="hidden" id="bookId" name="bookId" value="">
+        </div>
+        <div class="modal-footer">
+            <button id="addFileBtn">Добавить</button>
+        </div>
+    </div>
+</dialog>
